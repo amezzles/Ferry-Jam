@@ -1,0 +1,64 @@
+:root {
+    --primary-color: rgb(61, 104, 118);
+    --primary-hover-color: rgb(128, 196, 218);
+    --primary-active-color: rgb(128, 152, 170);
+    --text-color: rgb(230, 230, 230);
+    --text-color-dark: rgb(255, 255, 255);
+    --font-size-normal: 16px;
+    --font-size-large: 24px;
+    --border-radius: 8px;
+    --transition-speed: 0.2s;
+}
+
+Label {
+    font-size: var(--font-size-normal);
+    color: var(--text-color);
+}
+
+.h1 {
+    font-size: var(--font-size-large);
+    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/Ferry%20Jam/Fonts/Hello%20Seattle.ttf?fileID=12800000&guid=c6a0c60876c33494fae4d7ebc58d8a4e&type=3#Hello Seattle");
+}
+
+.unity-button {
+    -unity-font-style: bold;
+    font-size: var(--font-size-normal);
+    color: var(--text-color-dark);
+    -unity-text-align: middle-center;
+    background-color: var(--primary-color);
+    border-width: 0;
+    border-radius: var(--border-radius);
+    padding: 8px 16px;
+    margin: 4px;
+    transition-property: background-color, transform;
+    transition-duration: var(--transition-speed);
+    transition-timing-function: ease-in-out;
+    -unity-font-definition: url("project://database/Assets/Ferry%20Jam/Fonts/Hello%20Seattle.ttf?fileID=12800000&guid=c6a0c60876c33494fae4d7ebc58d8a4e&type=3#Hello Seattle");
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    height: auto;
+}
+
+.unity-button:hover {
+    background-color: var(--primary-hover-color);
+    transform: scale(1.05);
+    cursor: link;
+}
+
+.unity-button:active {
+    background-color: var(--primary-active-color);
+    transform: scale(0.98);
+    transition-duration: 0s;
+}
+
+.unity-label {
+}
+
+.unity-text-element {
+    font-size: 25px;
+    -unity-font-definition: url("project://database/Assets/Ferry%20Jam/Fonts/Hello%20Seattle.ttf?fileID=12800000&guid=c6a0c60876c33494fae4d7ebc58d8a4e&type=3#Hello Seattle");
+    color: rgb(255, 255, 255);
+}
