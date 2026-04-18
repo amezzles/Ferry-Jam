@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2837757804785388208}
   - component: {fileID: 1307413285082251312}
-  - component: {fileID: 383619895355947155}
   - component: {fileID: 1372769355463731685}
+  - component: {fileID: 383619895355947155}
+  - component: {fileID: 330614361829895818}
   m_Layer: 0
-  m_Name: Clickable
+  m_Name: Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,8 +30,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -93,6 +94,22 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1372769355463731685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 69054912851243618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 691038af86f745f4b9a44abc55f81ed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClickableObject
+  onClickAction:
+    m_PersistentCalls:
+      m_Calls: []
+  clickSoundName: click
 --- !u!61 &383619895355947155
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -123,7 +140,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -139,7 +156,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1372769355463731685
+--- !u!114 &330614361829895818
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,10 +165,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 69054912851243618}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 691038af86f745f4b9a44abc55f81ed4, type: 3}
+  m_Script: {fileID: 11500000, guid: 66eeb9b2093877743af36b276e316abf, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ClickableObject
-  onClickAction:
-    m_PersistentCalls:
-      m_Calls: []
-  clickSoundName: click
+  m_EditorClassIdentifier: Assembly-CSharp::FallingObject
+  fallSpeed: 5
+  despawnY: -10

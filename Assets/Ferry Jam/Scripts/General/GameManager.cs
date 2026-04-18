@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("The name of your main game scene file.")]
     public string mainGameSceneName = "MainGame";
+    
+    // Inside GameManager.cs
+    public int score = 0;
 
     void Awake()
     {
@@ -37,5 +40,11 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Quitting game...");
         Application.Quit();
+    }
+    
+    public void AddScore(int amount)
+    {
+        score += amount;
+        Debug.Log("Score: " + score);
     }
 }
