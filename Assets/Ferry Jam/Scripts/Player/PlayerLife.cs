@@ -4,11 +4,14 @@ using System.Collections;
 public class PlayerLife : MonoBehaviour
 {
     public int health = 2;
-    public GameObject[] cats; // Drag your 2 cat child objects into this list
+    public GameObject[] cats; 
     
+    [Header("Audio")]
+    public string hurtSound = "hurt"; 
+    public string endSound = "end";   
+
     [Header("Settings")]
-    public float invincibilityDuration = 1.5f; // Time player is safe after being hit
-    public string hurtSound = ""; // Optional sound name
+    public float invincibilityDuration = 1.5f; 
 
     private bool _isInvincible = false;
     private SpriteRenderer _spriteRenderer;
@@ -20,33 +23,35 @@ public class PlayerLife : MonoBehaviour
 
     public void TakeDamage()
     {
-        // If we are currently invincible, ignore the hit
         if (_isInvincible) return;
 
         health--;
 
-        // Play sound
-        if (!string.IsNullOrEmpty(hurtSound) && AudioManager.Instance != null)
-            AudioManager.Instance.PlaySFX(hurtSound);
-
-        // Delete the cat! 
-        // We use health as the index (if health is 1, we delete cats[1])
-        if (health >= 0 && health < cats.Length)
+        // 1. Play Hurt Sound
+        if (health > 0)
         {
-            if (cats[health] != null)
-            {
-                Destroy(cats[health]);
-            }
+            if (!string.IsNullOrEmpty(hurtSound) && AudioManager.Instance != null)
+                AudioManager.Instance.PlaySFX(hurtSound);
         }
 
-        // Check for Game Over
+        // 2. Remove a cat visual
+        if (health >= 0 && health < cats.Length)
+        {
+            if (cats[health] != null) cats[health].SetActive(false);
+        }
+
+        // 3. Check for Game Over
         if (health <= 0)
         {
-            GameManager.Instance.LoadMainMenu();
+            // Play End Sound
+            if (!string.IsNullOrEmpty(endSound) && AudioManager.Instance != null)
+                AudioManager.Instance.PlaySFX(endSound);
+
+            // Trigger the cool freeze-frame sequence in GameManager
+            GameManager.Instance.GameOver();
         }
         else
         {
-            // Start flickering and being invincible so we don't die instantly
             StartCoroutine(HandleInvincibility());
         }
     }
@@ -54,17 +59,14 @@ public class PlayerLife : MonoBehaviour
     private IEnumerator HandleInvincibility()
     {
         _isInvincible = true;
-
-        // Flicker effect
         float timer = 0;
         while (timer < invincibilityDuration)
         {
-            _spriteRenderer.enabled = !_spriteRenderer.enabled; // Flash on/off
+            _spriteRenderer.enabled = !_spriteRenderer.enabled; 
             yield return new WaitForSeconds(0.1f);
             timer += 0.1f;
         }
-
-        _spriteRenderer.enabled = true; // Ensure sprite is back on
+        _spriteRenderer.enabled = true; 
         _isInvincible = false;
     }
 }

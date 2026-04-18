@@ -1005,13 +1005,6 @@ MonoBehaviour:
     pitch: 1
     randomVolume: 0.28
     randomPitch: 0.2
-  - name: crab
-    clips:
-    - {fileID: 8300000, guid: f4392807e4f88894b9b1db84c60b1e86, type: 3}
-    volume: 1
-    pitch: 1
-    randomVolume: 0.28
-    randomPitch: 0.2
 --- !u!4 &208328786
 Transform:
   m_ObjectHideFlags: 0

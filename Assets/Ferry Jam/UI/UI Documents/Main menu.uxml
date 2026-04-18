@@ -1,7 +1,8 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Ferry%20Jam/UI/Styling/FerryJam.uss?fileID=7433441132597879392&amp;guid=d3aaf19799ba8c542a963e29fa021321&amp;type=3#FerryJam"/>
     <ui:VisualElement style="flex-grow: 1; align-items: center;">
-        <ui:Label text="KITTY RAFT" name="Title" style="-unity-font-definition: url(&quot;project://database/Assets/Ferry%20Jam/Fonts/WavEd-Regular.ttf?fileID=12800000&amp;guid=3fd10c9f1d4e0d441ab8671d257e2544&amp;type=3#WavEd-Regular&quot;); font-size: 150px; -unity-text-align: middle-center; top: 30%; left: 0; bottom: auto; right: 0; position: absolute; -unity-text-outline-color: rgb(255, 255, 255); color: rgb(255, 255, 255);"/>
+        <ui:Label text="KITTYRAFT" name="Title" style="-unity-font-definition: url(&quot;project://database/Assets/Ferry%20Jam/Fonts/WavEd-Regular.ttf?fileID=12800000&amp;guid=3fd10c9f1d4e0d441ab8671d257e2544&amp;type=3#WavEd-Regular&quot;); font-size: 150px; -unity-text-align: middle-center; top: 30%; left: 0; bottom: auto; right: 0; position: absolute; -unity-text-outline-color: rgb(255, 255, 255); color: rgb(255, 255, 255);"/>
+        <ui:Label text="Help the cats dodge floating objects!" name="Description" style="top: 50%;"/>
         <ui:Button text="Start" name="Start" style="position: absolute; left: auto; right: auto; top: 60%; font-size: 60px; background-color: rgba(61, 104, 118, 0.67);"/>
         <ui:Button text="Quit" name="Quit" style="position: absolute; left: auto; right: auto; top: 75%; font-size: 60px; background-color: rgba(61, 104, 118, 0.67);"/>
     </ui:VisualElement>

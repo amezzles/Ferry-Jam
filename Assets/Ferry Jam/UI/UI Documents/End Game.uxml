@@ -1,0 +1,8 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Ferry%20Jam/UI/Styling/FerryJam.uss?fileID=7433441132597879392&amp;guid=d3aaf19799ba8c542a963e29fa021321&amp;type=3#FerryJam"/>
+    <ui:VisualElement name="EndGame" style="flex-grow: 1;">
+        <ui:Label text="Final Score: " name="FinalScore" style="left: 0; top: 40%; right: 0; bottom: 0; -unity-text-align: middle-center; font-size: 50px;"/>
+        <ui:Button text="Retry" name="Retry" style="width: 20%; top: 60%; position: absolute; left: 40%; right: 0;"/>
+        <ui:Button text="Main Menu" name="MainMenu" style="width: 20%; top: 60%; left: 40%;"/>
+    </ui:VisualElement>
+</ui:UXML>

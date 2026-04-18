@@ -166,3 +166,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FallingObject
   baseFallSpeed: 5
   despawnY: -10
+  spawnSoundName: ducky
