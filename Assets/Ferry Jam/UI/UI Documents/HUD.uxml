@@ -3,6 +3,6 @@
     <ui:VisualElement name="HUD" style="flex-grow: 1; width: 100%; height: 15%; position: absolute; flex-direction: row; padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px;">
         <ui:Button text="Quit" name="Quit" enable-rich-text="true" style="font-size: 30px; margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px;"/>
         <ui:Button text="" name="Pause" style="background-image: url(&quot;project://database/Assets/skymon-icons-white/pause.png?fileID=21300000&amp;guid=9c6e337c7ef38b0478f6a52f8854a69a&amp;type=3#pause&quot;); -unity-background-scale-mode: scale-to-fit;"/>
-        <ui:Label text="Score:" name="Score" style="-unity-font-definition: url(&quot;project://database/Assets/Ferry%20Jam/Fonts/Hello%20Seattle.ttf?fileID=12800000&amp;guid=c6a0c60876c33494fae4d7ebc58d8a4e&amp;type=3#Hello Seattle&quot;); right: auto; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px; margin-left: 50px; -unity-text-align: middle-center; font-size: 30px;"/>
+        <ui:Label text="Score: 0" name="Score" style="-unity-font-definition: url(&quot;project://database/Assets/Ferry%20Jam/Fonts/Hello%20Seattle.ttf?fileID=12800000&amp;guid=c6a0c60876c33494fae4d7ebc58d8a4e&amp;type=3#Hello Seattle&quot;); right: auto; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px; margin-left: 50px; -unity-text-align: middle-center; font-size: 30px;"/>
     </ui:VisualElement>
 </ui:UXML>

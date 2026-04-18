@@ -1,20 +1,16 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
-using Cursor = UnityEngine.Cursor;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
     [Header("Scene Configuration")]
-    [Tooltip("The name of your main menu scene file.")]
     public string mainMenuSceneName = "MainMenu";
+    public string mainGameSceneName = "Game";
 
-    [Tooltip("The name of your main game scene file.")]
-    public string mainGameSceneName = "MainGame";
-    
-    // Inside GameManager.cs
+    [Header("Game State")]
     public int score = 0;
 
     void Awake()
@@ -28,54 +24,77 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    void Start()
-    {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-    }
-    
+    // --- SCENE LOADING ---
+
     public void LoadGame()
     {
+        score = 0;
+        Time.timeScale = 1f;
+        
+        // Pick random music for the gameplay
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayRandomMusic();
+        
         SceneManager.LoadScene(mainGameSceneName);
     }
-    
+
     public void LoadMainMenu()
     {
-        Cursor.visible = true; 
-        Cursor.lockState = CursorLockMode.None; 
+        Time.timeScale = 1f;
+        
+        // Reset Cursor
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        // Pick random music for the menu
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayRandomMusic();
+
         SceneManager.LoadScene(mainMenuSceneName);
     }
-    
+
     public void QuitGame()
     {
         Debug.Log("Quitting game...");
         Application.Quit();
+
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #endif
     }
-    
-    // Inside GameManager.cs
+
+    // --- GAME LOGIC ---
+
+    public void AddScore(int amount)
+    {
+        score += amount;
+    }
 
     public void GameOver()
     {
-        Time.timeScale = 0f; // Freeze game
+        StartCoroutine(GameOverSequence());
+    }
 
-        // 1. Hide the HUD
+    private IEnumerator GameOverSequence()
+    {
+        // Freeze the game
+        Time.timeScale = 0f;
+
+        // Stop the music
+        if (AudioManager.Instance != null) AudioManager.Instance.StopMusic();
+
+        // Hide the HUD
         HUD hud = Object.FindAnyObjectByType<HUD>();
         if (hud != null)
         {
-            hud.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.None;
+            hud.GetComponent<UnityEngine.UIElements.UIDocument>().rootVisualElement.style.display = UnityEngine.UIElements.DisplayStyle.None;
         }
 
-        // 2. Show the Game Over Screen
+        // Show the Game Over Screen
         GameOverUI gameOverUI = Object.FindAnyObjectByType<GameOverUI>();
         if (gameOverUI != null)
         {
             gameOverUI.Show(score);
         }
-    }
-    
-    public void AddScore(int amount)
-    {
-        score += amount;
-        Debug.Log("Score: " + score);
+
+        yield break; // Coroutine ends here; the UI buttons take over
     }
 }

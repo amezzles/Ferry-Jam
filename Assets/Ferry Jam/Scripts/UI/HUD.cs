@@ -1,6 +1,7 @@
-using System;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
+using Cursor = UnityEngine.Cursor;
 
 [RequireComponent(typeof(UIDocument))]
 public class HUD : MonoBehaviour
@@ -10,44 +11,25 @@ public class HUD : MonoBehaviour
     public Sprite playIcon;  
 
     private Button _pauseButton;
-    private Button _quitButton;
-    private Label _scoreLabel;
+    private Button _quitButton; 
     private bool _isPaused = false;
+    private VisualElement _root;
 
     void OnEnable()
     {
-        var root = GetComponent<UIDocument>().rootVisualElement;
+        _root = GetComponent<UIDocument>().rootVisualElement;
 
-        // Find the buttons
-        _pauseButton = root.Q<Button>("Pause");
-        _quitButton = root.Q<Button>("Quit"); // Make sure this name matches UI Builder!
-        _scoreLabel = root.Q<Label>("Score");
+        _pauseButton = _root.Q<Button>("Pause");
+        _quitButton = _root.Q<Button>("Quit"); 
 
-        // --- Setup Pause Button ---
         if (_pauseButton != null)
         {
             _pauseButton.clicked += TogglePause;
-            
             _pauseButton.text = ""; 
-            if (pauseIcon != null)
-            {
-                _pauseButton.style.backgroundImage = new StyleBackground(pauseIcon);
-            }
-        }
-        else
-        {
-            Debug.LogError("Could not find 'pause-button' in UI Builder!");
+            if (pauseIcon != null) _pauseButton.style.backgroundImage = new StyleBackground(pauseIcon);
         }
 
-        // --- Setup Quit Button ---
-        if (_quitButton != null)
-        {
-            _quitButton.clicked += ReturnToMenu;
-        }
-        else
-        {
-            Debug.LogError("Could not find 'quit-button' in UI Builder!");
-        }
+        if (_quitButton != null) _quitButton.clicked += ReturnToMenu;
     }
     
     void OnDisable()
@@ -56,26 +38,41 @@ public class HUD : MonoBehaviour
         if (_quitButton != null) _quitButton.clicked -= ReturnToMenu;
     }
 
-    private void Update()
+    void Update()
     {
-        if (_scoreLabel != null && GameManager.Instance != null)
+        // Check for Escape key press
+        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            _scoreLabel.text = "Score: " + GameManager.Instance.score;
+            // Only allow pausing if the Game Over screen isn't showing
+            // We check this by seeing if the HUD is still visible
+            if (_root.style.display != DisplayStyle.None)
+            {
+                TogglePause();
+            }
         }
     }
 
-    private void TogglePause()
+    public void TogglePause()
     {
         _isPaused = !_isPaused;
 
         if (_isPaused)
         {
             Time.timeScale = 0f; // Freeze
+            
+            // Show the real mouse so we can click "Quit"
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
             if (playIcon != null) _pauseButton.style.backgroundImage = new StyleBackground(playIcon);
         }
         else
         {
             Time.timeScale = 1f; // Unfreeze
+            
+            // Hide the real mouse again for the Puff cursor
+            Cursor.visible = false;
+
             if (pauseIcon != null) _pauseButton.style.backgroundImage = new StyleBackground(pauseIcon);
         }
     }
@@ -83,14 +80,9 @@ public class HUD : MonoBehaviour
     private void ReturnToMenu()
     {
         Time.timeScale = 1f; 
-
         if (GameManager.Instance != null)
         {
             GameManager.Instance.LoadMainMenu();
-        }
-        else
-        {
-            Debug.LogError("GameManager is missing! Cannot return to menu.");
         }
     }
 }

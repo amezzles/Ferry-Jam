@@ -17,7 +17,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
 
     public AudioSource musicSource;
-    public AudioSource sfxSource; // NEW: Dedicated source for SFX
+    public AudioSource sfxSource;
 
     public Sound[] musicTracks;
     public Sound[] sfx;
@@ -38,18 +38,7 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         if (musicTracks.Length > 0) PlayMusic(musicTracks[0].name);
-    }
-
-    public void PlayMusic(string name)
-    {
-        Sound s = Array.Find(musicTracks, sound => sound.name == name);
-        if (s == null || s.clips.Length == 0) return;
-
-        musicSource.clip = s.clips[0];
-        musicSource.volume = s.volume;
-        musicSource.pitch = s.pitch;
-        musicSource.loop = true;
-        musicSource.Play();
+        PlayRandomMusic();
     }
 
     public void PlaySFX(string name)
@@ -71,5 +60,34 @@ public class AudioManager : MonoBehaviour
         sfxSource.PlayOneShot(clipToPlay, finalVolume);
         
         Debug.Log("Playing OneShot: " + name + " at volume " + finalVolume);
+    }
+
+    public void PlayRandomMusic()
+    {
+        if (musicTracks.Length == 0) return;
+
+        // Pick a random index
+        int randomIndex = UnityEngine.Random.Range(0, musicTracks.Length);
+        PlayMusic(musicTracks[randomIndex].name);
+    }
+
+    public void PlayMusic(string name)
+    {
+        Sound s = Array.Find(musicTracks, sound => sound.name == name);
+        if (s == null || s.clips.Length == 0) return;
+
+        // Stop current music before starting new music
+        musicSource.Stop();
+
+        musicSource.clip = s.clips[0];
+        musicSource.volume = s.volume;
+        musicSource.pitch = s.pitch;
+        musicSource.loop = true;
+        musicSource.Play();
+    }
+
+    public void StopMusic()
+    {
+        musicSource.Stop();
     }
 }

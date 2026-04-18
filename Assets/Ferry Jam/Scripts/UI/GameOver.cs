@@ -16,9 +16,9 @@ public class GameOverUI : MonoBehaviour
         _root = GetComponent<UIDocument>().rootVisualElement;
 
         // Find elements by name - Make sure these match your UXML!
-        _retryButton = _root.Q<Button>("retry-button");
-        _menuButton = _root.Q<Button>("menu-button");
-        _finalScoreLabel = _root.Q<Label>("final-score-label");
+        _retryButton = _root.Q<Button>("Retry");
+        _menuButton = _root.Q<Button>("MainMenu");
+        _finalScoreLabel = _root.Q<Label>("FinalScore");
 
         if (_retryButton != null) _retryButton.clicked += OnRetryClicked;
         if (_menuButton != null) _menuButton.clicked += OnMenuClicked;
@@ -42,7 +42,9 @@ public class GameOverUI : MonoBehaviour
     private void OnRetryClicked()
     {
         Time.timeScale = 1f;
-        // Reloads the currently active scene
+        
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayRandomMusic();
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -51,4 +53,5 @@ public class GameOverUI : MonoBehaviour
         Time.timeScale = 1f;
         GameManager.Instance.LoadMainMenu();
     }
+    
 }
