@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
@@ -14,6 +15,7 @@ public class HUD : MonoBehaviour
     private Button _quitButton; 
     private bool _isPaused = false;
     private VisualElement _root;
+    private Label _score;
 
     void OnEnable()
     {
@@ -21,6 +23,7 @@ public class HUD : MonoBehaviour
 
         _pauseButton = _root.Q<Button>("Pause");
         _quitButton = _root.Q<Button>("Quit"); 
+        _score = _root.Q<Label>("Score");
 
         if (_pauseButton != null)
         {
@@ -40,18 +43,22 @@ public class HUD : MonoBehaviour
 
     void Update()
     {
-        // Check for Escape key press
+        // --- ADD THIS TO UPDATE THE SCORE ---
+        if (_score != null && GameManager.Instance != null)
+        {
+            // Using "Score: " + number
+            _score.text = "Score: " + GameManager.Instance.score;
+        }
+
+        // --- Keep your existing Escape key logic below ---
         if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            // Only allow pausing if the Game Over screen isn't showing
-            // We check this by seeing if the HUD is still visible
             if (_root.style.display != DisplayStyle.None)
             {
                 TogglePause();
             }
         }
     }
-
     public void TogglePause()
     {
         _isPaused = !_isPaused;

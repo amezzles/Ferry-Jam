@@ -6,6 +6,7 @@ public class MainMenu : MonoBehaviour
 {
     private Button _startButton;
     private Button _quitButton;
+    private Label _descriptionLabel;
     
     void OnEnable()
     {
@@ -14,6 +15,7 @@ public class MainMenu : MonoBehaviour
         
         _startButton = root.Q<Button>("Start");
         _quitButton = root.Q<Button>("Quit");
+        _descriptionLabel = root.Q<Label>("Description");
         
         _startButton.clicked += OnStartClicked;
         _quitButton.clicked += OnQuitClicked;
@@ -29,6 +31,7 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("Start button clicked. Loading game scene...");
         GameManager.Instance.LoadGame();
+        _descriptionLabel.text = "Help the cats dodge floating objects!";
     }
 
     private void OnQuitClicked()
